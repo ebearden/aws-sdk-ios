@@ -44,6 +44,7 @@ static NSString *const AWSCognitoUserPoolAppClientId = @"AppClientId";
 static NSString *const AWSCognitoUserPoolAppClientSecret = @"AppClientSecret";
 static NSString *const AWSCognitoUserPoolPinpointAppId = @"PinpointAppId";
 static NSString *const AWSCognitoUserPoolMigrationEnabled = @"MigrationEnabled";
+static NSString *const AWSCognitoUserPoolEndpoint = @"Endpoint";
 
 static NSString *const AWSPinpointContextKeychainService = @"com.amazonaws.AWSPinpointContext";
 static NSString *const AWSPinpointContextKeychainUniqueIdKey = @"com.amazonaws.AWSPinpointContextKeychainUniqueIdKey";
@@ -72,6 +73,12 @@ static NSString *const AWSPinpointContextKeychainUniqueIdKey = @"com.amazonaws.A
         NSString *clientSecret = [serviceInfo.infoDictionary objectForKey:AWSCognitoUserPoolAppClientSecret] ?: [serviceInfo.infoDictionary objectForKey:AWSCognitoUserPoolAppClientSecretLegacy];
         NSString *pinpointAppId = [serviceInfo.infoDictionary objectForKey:AWSCognitoUserPoolPinpointAppId];
         NSNumber *migrationEnabled = [serviceInfo.infoDictionary objectForKey:AWSCognitoUserPoolMigrationEnabled];
+        NSString *endpoint = [serviceInfo.infoDictionary objectForKey:AWSCognitoUserPoolEndpoint];
+        
+        if (endpoint) {
+            [serviceConfiguration setBaseURL:[NSURL URLWithString:endpoint]];
+        }
+        
         BOOL migrationEnabledBoolean = NO;
         if (migrationEnabled != nil) {
             migrationEnabledBoolean = [migrationEnabled boolValue];
@@ -83,7 +90,7 @@ static NSString *const AWSPinpointContextKeychainUniqueIdKey = @"com.amazonaws.A
                                                                                                                                 poolId:poolId
                                                                                                     shouldProvideCognitoValidationData:YES
                                                                                                                          pinpointAppId:pinpointAppId
-                                                                    migrationEnabled:migrationEnabledBoolean ];
+                                                                                                                      migrationEnabled:migrationEnabledBoolean];
             _defaultUserPool = [[AWSCognitoIdentityUserPool alloc] initWithConfiguration:serviceConfiguration
                                                                    userPoolConfiguration:configuration];
         } else {
