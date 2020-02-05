@@ -75,6 +75,7 @@ static NSString *const AWSPinpointContextKeychainUniqueIdKey = @"com.amazonaws.A
         NSNumber *migrationEnabled = [serviceInfo.infoDictionary objectForKey:AWSCognitoUserPoolMigrationEnabled];
         NSString *endpoint = [serviceInfo.infoDictionary objectForKey:AWSCognitoUserPoolEndpoint];
         
+        NSLog(@"SOME THINGS!!!");
         if (endpoint) {
             [serviceConfiguration setBaseURL:[NSURL URLWithString:endpoint]];
         }
