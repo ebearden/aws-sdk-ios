@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'AWSCognitoIdentityProvider'
-  s.version      = '2.12.6'
+  s.version      = '2.12.7'
   s.summary      = 'Amazon Cognito Identity Provider SDK for iOS (Beta)'
 
   s.description  = 'Amazon Cognito Identity Provider enables sign up and authentication of your end users'
